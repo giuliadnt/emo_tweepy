@@ -1,7 +1,12 @@
 # emo_tweepy
 Get tweets using emoji as keywords.
 
-Implemented with tweepy
+Python 2.7
+
+Added Libraries:
+
+Tweepy
+Demjson
 
 TODO:
 
