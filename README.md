@@ -1,5 +1,6 @@
 # emo_tweepy
-Get tweets using emoji as keywords
+Get tweets using emoji as keywords.
+
 Implemented with tweepy
 
 TODO:
