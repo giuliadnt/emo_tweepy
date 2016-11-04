@@ -1,5 +1,6 @@
 __author__ = 'GiuliaDnt'
 
+import numpy as np
 from preprocessing import *
 
 def main():
