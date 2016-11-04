@@ -9,7 +9,6 @@ __author__ = 'GiuliaDnt'
 
 import codecs
 import re
-import numpy as np
 
 #use this list to keep only tweets containing emoji
 keywords = [u'\U0001F3F0', u'\U0001F3EB', u'\U0001F3E1', #places
@@ -69,9 +68,9 @@ def get_name_with_length(mylist):
     """
     :param mylist: list of lists (each list correspond to a keyword
     :return: triple
-             1st item: keyword name and num of items of the shortest list
-             2nd item: keyword name and num of items of the longest list
-             3rd item:
+             1st item: list of tuples (key_name, amount of items)
+             2nd item: keyword name and num of items of the shortest list
+             3rd item: keyword name and num of items of the longest list
     """
     lengths = [len(lists) for lists in mylist]
     d = [(keywords_names[idx], i) for idx, i in enumerate(lengths)]
@@ -80,12 +79,7 @@ def get_name_with_length(mylist):
     return d, min_pair, max_pair
 
 
-with codecs.open('datafile.json', 'r', encoding='utf32') as f:
-     myfile = f.readlines()
-#remove duplicates
-unique = list(set(myfile))
-cleaned = [tweet for tweet in clean_tweets(unique) if len(tweet)<=140 and len(tweet)>=10]
-key_lists = create_classes_lists(cleaned, keywords)
+
 
 
 
