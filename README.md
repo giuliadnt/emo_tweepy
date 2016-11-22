@@ -11,7 +11,7 @@ Demjson
 
 TODO:
 
-> Veirify Unicode possible problems
+> Verify Unicode possible problems
 
 > Maybe get list of emoji unicodes from website directly ?
 
