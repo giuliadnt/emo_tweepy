@@ -78,7 +78,21 @@ def get_name_with_length(mylist):
     max_pair =  max(d, key=lambda x: x[1])
     return d, min_pair, max_pair
 
+def group_keywords_by_class(klists, step):
+    """
+    All keywords lists are grouped in a single class list
+    class + index = Places[0], food&drinks[1], sport[2]
+                    music[3], other_activities[4], nature&animals[5]
+                    events[6], people[7], feelings[8]
+                    traveling/commuting[9]
+    :param klist: nested list of tweets by keywords
+    :param step: num of lists that must be grouped together (3, in this case)
+    :return: nested lists of tweets grouped by class
+    """
+    nested_classes_lists = [klists[i:i+step] for i in range(0, len(klists),step)]
 
+    flatten_classes_lists = [[tweet for list in nest for tweet in list ]for nest in nested_classes_lists]
+    return flatten_classes_lists
 
 
 
