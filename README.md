@@ -17,3 +17,5 @@ TODO:
 
 > Error handling (the stream encounters different connection errors)
 
+2019 --> update to py 3
+
