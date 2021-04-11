@@ -1,13 +1,9 @@
-__author__ = 'GiuliaDnt'
-
-
 #SOME BASIC DATA ANALYSIS AND PREPROCESSING FOR ANNOTATION
 #TODO: (ML PART)
 #tokenize
 #remove punctuation ?
 #retweets handle or not?
 
-import codecs
 import re
 
 #use this list to keep only tweets containing emoji

@@ -1,8 +1,4 @@
 #!/usr/bin/python
-# -*- coding: <utf8> -*-
-
-__author__ = 'GiuliaDnt'
-
 
 import time
 from httplib import IncompleteRead
@@ -46,17 +42,17 @@ class Listener(StreamListener):
 
             try:
                 out_file = codecs.open("datafile.json","a", encoding="utf32")
-                print store_data['text'], '\n', self.counter
+                print(store_data['text'], '\n', self.counter)
                 # Write only the text of the tweet to file
                 out_file.write(store_data['text'] + '\n')
                 out_file.close()
             #possibly replace with KeyError
             except Exception as e:
-                print e.message
+                print(e.message)
 
 
         elif self.counter>=self.limit:
-            print "Done! Finally! I am really exhausted..."
+            print("Done! Finally! I am really exhausted...")
             return False
 
         self.counter += 1
@@ -80,5 +76,5 @@ twitter_stream = Stream(auth, Listener())
 # Handle Protocol Error
 try:
     twitter_stream.filter(track=keywords, languages=['en'], async=True)
-except IncompleteRead:
-    print "Connection broken"
+except IncompleteRead as e:
+    print("Connection broken")
