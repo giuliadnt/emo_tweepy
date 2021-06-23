@@ -1,12 +1,6 @@
-#SOME BASIC DATA ANALYSIS AND PREPROCESSING FOR ANNOTATION
-#TODO: (ML PART)
-#tokenize
-#remove punctuation ?
-#retweets handle or not?
-
 import re
 
-#use this list to keep only tweets containing emoji
+# use this list to keep only tweets containing emoji
 keywords = [u'\U0001F3F0', u'\U0001F3EB', u'\U0001F3E1', #places
             u'\U00002615', u'\U0001F355',u'\U0001F369',  #food&drinks
             u'\U0001F3C0', u'\U0001F3C6', u'\U0001F3CA', #sport
@@ -15,7 +9,7 @@ keywords = [u'\U0001F3F0', u'\U0001F3EB', u'\U0001F3E1', #places
             u'\U0001F436', u'\U0001F341 ', u'\U00002744', #nature&animals
             u'\U0001F393', u'\U0001F389',u'\U0001F383',   #events
             u'\U0001F46B', u'\U0001F64B', u'\U0001F6B6',  #people
-            u'\U0001F622',u'\U0001F612', u'\U0001F60D',   #feelings
+            u'\U0001F622', u'\U0001F612', u'\U0001F60D',   #feelings
             u'\U00002708 ', u'\U0001F697', u'\U000026F5' ] #traveling
 
 keywords_names = ["european castle", "school", "home + garden",
@@ -38,17 +32,14 @@ def clean_tweets(list_of_tweets):
     and URLs --> @URL
     removes BOM character
     """
-    #PATTERNS
-    #matches @username
-    mentions =re.compile('(@.*?)(?=\s|\:)')#(^|\s)
-    #matches URLs, regex from stackoverflow
-    #http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
-    links =re.compile('(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?')
-
+    # matches @username
+    mentions = re.compile('(@.*?)(?=\s|\:)')#(^|\s)
+    # http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
+    links = re.compile('(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?')
     no_mentions = [re.sub(mentions, "@USER", i) for i in list_of_tweets]
     no_links = [re.sub(links, "@URL", i) for i in no_mentions]
     no_BOM = [re.sub(u"\ufeff", "", i) for i in no_links]
-    no_newlinechar = [re.sub('\n',"", i) for i in no_BOM]
+    no_newlinechar = [re.sub('\n', "", i) for i in no_BOM]
     return no_newlinechar
 
 
@@ -60,6 +51,7 @@ def create_classes_lists(list2, keywords_list):
     """
     return [[i for i in list2 if keywords_list[num] in i] for num in range(len(keywords_list))]
 
+
 def get_name_with_length(mylist):
     """
     :param mylist: list of lists (each list correspond to a keyword
@@ -70,9 +62,10 @@ def get_name_with_length(mylist):
     """
     lengths = [len(lists) for lists in mylist]
     d = [(keywords_names[idx], i) for idx, i in enumerate(lengths)]
-    min_pair =  min(d, key=lambda x: x[1])
-    max_pair =  max(d, key=lambda x: x[1])
+    min_pair = min(d, key=lambda x: x[1])
+    max_pair = max(d, key=lambda x: x[1])
     return d, min_pair, max_pair
+
 
 def group_keywords_by_class(klists, step):
     """
@@ -81,13 +74,13 @@ def group_keywords_by_class(klists, step):
                     music[3], other_activities[4], nature&animals[5]
                     events[6], people[7], feelings[8]
                     traveling/commuting[9]
-    :param klist: nested list of tweets by keywords
+    :param klists: nested list of tweets by keywords
     :param step: num of lists that must be grouped together (3, in this case)
     :return: nested lists of tweets grouped by class
     """
-    nested_classes_lists = [klists[i:i+step] for i in range(0, len(klists),step)]
+    nested_classes_lists = [klists[i:i+step] for i in range(0, len(klists), step)]
 
-    flatten_classes_lists = [[tweet for list in nest for tweet in list ]for nest in nested_classes_lists]
+    flatten_classes_lists = [[tweet for lst in nest for tweet in lst]for nest in nested_classes_lists]
     return flatten_classes_lists
 
 

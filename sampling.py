@@ -5,27 +5,27 @@ import random
 from preprocessing import *
 
 with codecs.open('datafile.json', 'r', encoding='utf32') as f:
-     myfile = f.readlines()
+    myfile = f.readlines()
 
-#remove duplicates
+# remove duplicates
 unique = list(set(myfile))
-cleaned = [tweet for tweet in clean_tweets(unique) if len(tweet)<=140 and len(tweet)>=10]
+cleaned = [tweet for tweet in clean_tweets(unique) if 140 >= len(tweet) >= 10]
 key_lists = create_classes_lists(cleaned, keywords)
 
-tuples = [[[re.sub(keywords[index], '<KEY_EMOJI>', tweet), keywords[index]] for tweet in l ]  for index, l in enumerate(key_lists)]
+tuples = [[[re.sub(keywords[index], '<KEY_EMOJI>', tweet), keywords[index]] for tweet in l] for index, l in enumerate(key_lists)]
 
 
 classes = group_keywords_by_class(tuples, 3)
 
-#SAMPLE DATA FOR ANNOTATION, LOWER BOUND (920) --> NUMBER OF INSTANCES IN LEAST POPULATED CLASS
+# SAMPLE DATA FOR ANNOTATION, LOWER BOUND (920) --> NUMBER OF INSTANCES IN THE LEAST POPULATED CLASS
 
 random.seed(5)
 
-#RANDOM INDICES, 920 ITEM PER CLASS
+# RANDOM INDICES, 920 ITEM PER CLASS
 
 rand_ind = [random.sample(range(len(i)), 920) for i in classes]
 
-#FLAT LIST OF CLASS SAMPLES FROM ORIGINAL CORPUS
+# FLAT LIST OF CLASS SAMPLES FROM ORIGINAL CORPUS
 nl = []
 for ind, tweet_list in enumerate(classes):
     for indd, ind_list in enumerate(rand_ind):
