@@ -21,7 +21,7 @@ The script takes emoji_corpus.json as input, extracts the actual tweet text and 
 Includes the code originally used to scrape data from Twitter, sample, preprocess and collect the stats about the dataset.
 
 #### Note
-The code requires python 3.9 t run.  
+The code requires python 3.9 to run.  
 The scraper requires [Tweepy](https://www.tweepy.org/).
 
 
