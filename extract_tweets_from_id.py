@@ -3,7 +3,7 @@ import re
 import json
 import time
 from tweepy import OAuthHandler, API
-from preprocessing import keywords
+from scripts_for_data_extraction_and_preprocessing.preprocessing import keywords
 import logging
 from dotenv import load_dotenv
 load_dotenv()
@@ -69,7 +69,7 @@ def extract_tweets_from_id(id_corpus):
     return training
 
 
-corpus_file = read_corpus("new_corpus.json")
+corpus_file = read_corpus("emoji_corpus_ids.json")
 
 fetched = extract_tweets_from_id(corpus_file)
 print(fetched)
